@@ -9,11 +9,12 @@ def work(n: int):
     print(f'Processing part {n}...')
 
     # fetch the movie defined in the csv file
-    from imdb import Cinemagoer, IMDbDataAccessError
+    from imdb import Cinemagoer
     ia = Cinemagoer()
-    for i in df_movie['tconst']:
+
+    for tconst in df_movie['tconst']:
         try:
-            movie = ia.get_movie(i)
+            movie = ia.get_movie(tconst)
             print(f'Movie info: {movie}')
 
             finance = movie['box office']
@@ -22,8 +23,8 @@ def work(n: int):
             finance_budget = finance['Budget'] if 'Budget' in finance else ""
             finance_cwg = finance['Cumulative Worldwide Gross'] if 'Cumulative Worldwide Gross' in finance else ""
 
-            print(f'i = {i}: {finance_budget}, {finance_cwg}, {country}')
-            box_office.loc[k] = [i, finance_budget, finance_cwg, country]
+            print(f'i = {tconst}: {finance_budget}, {finance_cwg}, {country}')
+            box_office.loc[k] = [tconst, finance_budget, finance_cwg, country]
             k =+ 1
         except Exception as e:
             print(f'Error: {e}')

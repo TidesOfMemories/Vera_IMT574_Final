@@ -34,7 +34,7 @@ async def work(n: int):
     box_office = pd.DataFrame(columns=('mid', 'budget', 'box_office', 'country'))
 
     # read the csv file using arg n and reconstruct df_movie
-    df_movie = pd.read_csv(f'./df_movie_{n}.csv')
+    df_movie = pd.read_csv(f'./work_parts/df_movie_{n}.csv')
     print(f'Processing part {n}...')
 
     # fetch the movie defined in the csv file
@@ -46,12 +46,16 @@ async def work(n: int):
             continue
         box_office.loc[i] = data
 
-    box_office.to_csv(f'./box_office_part_{n}.csv', index=False)
+    box_office.to_csv(f'./result_parts/box_office_part_{n}.csv', index=False)
 
 if __name__ == '__main__':
     # get input argument of the python file 
     # and convert it to integer
     import sys
+    import pathlib
+
     n = int(sys.argv[1])
     executor = ThreadPoolExecutor(max_workers=100)
+
+    pathlib.Path('./result_parts').mkdir(parents=True, exist_ok=True)
     asyncio.run(work(n))

@@ -42,6 +42,8 @@ async def work(n: int):
     fetched = await asyncio.gather(*(fetch(goer, tconst) for tconst in df_movie["tconst"]))
 
     for i, data in enumerate(fetched):
+        if data is None:
+            continue
         box_office.loc[i] = data
 
     box_office.to_csv(f'./box_office_part_{n}.csv', index=False)
@@ -51,5 +53,5 @@ if __name__ == '__main__':
     # and convert it to integer
     import sys
     n = int(sys.argv[1])
-    executor = ThreadPoolExecutor(max_workers=5)
+    executor = ThreadPoolExecutor(max_workers=100)
     asyncio.run(work(n))

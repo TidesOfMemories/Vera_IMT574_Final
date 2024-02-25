@@ -55,7 +55,7 @@ if __name__ == '__main__':
     import pathlib
 
     n = int(sys.argv[1])
-    executor = ThreadPoolExecutor(max_workers=100)
+    executor = ThreadPoolExecutor(max_workers=10)
 
     pathlib.Path('./result_parts').mkdir(parents=True, exist_ok=True)
     asyncio.run(work(n))

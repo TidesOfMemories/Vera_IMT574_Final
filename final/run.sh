@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # maps the workload to the number of processes
-for i in {0..999}; do
-    python worker.py $i &
+for i in {999..0}; do
+    python3 worker.py $i
 done
 
 wait

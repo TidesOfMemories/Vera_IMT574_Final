@@ -49,13 +49,13 @@ async def work(n: int):
     box_office.to_csv(f'./result_parts/box_office_part_{n}.csv', index=False)
 
 if __name__ == '__main__':
-    # get input argument of the python file 
+    # get input argument of the python file
     # and convert it to integer
     import sys
     import pathlib
 
     n = int(sys.argv[1])
-    executor = ThreadPoolExecutor(max_workers=100)
+    executor = ThreadPoolExecutor(max_workers=5)
 
     pathlib.Path('./result_parts').mkdir(parents=True, exist_ok=True)
     asyncio.run(work(n))
